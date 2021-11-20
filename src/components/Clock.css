@@ -1,0 +1,68 @@
+.Clock {
+    position: relative;
+}
+
+.dot {
+    position: absolute;
+}
+
+.d1 {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.d1 {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.d2 {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.d3 {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.d4 {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cg {
+    position: relative;
+}
+
+.hand {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    transform-origin: 2px 50%;
+    /* transform: translate(-50%, -50%); */
+}
+
+.hour {
+    /* width: 50px;
+    height: 3px; */
+    /* transform: rotateZ(20deg); */
+}
+
+.minute {
+    /* width: 70px;
+    height: 2px; */
+    /* transform: rotateZ(60deg); */
+}
+
+.sec {
+    top: 4px;
+    /* width: 80px;
+    height: 1px; */
+    /* transform: rotateZ(100deg); */
+}
