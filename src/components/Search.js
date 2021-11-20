@@ -4,12 +4,23 @@ import search from '../icons/search.svg';
 
 const Search = () => {
     const api = {
-        base: "http://api.openweathermap.org/data/2.5/",
+        base: "https://api.openweathermap.org/data/2.5/",
         key: "5e28c723438d29a73854e5cc48b19fcd"
     }
 
     const [query, setQuery] = useState('');
     const [data, setData] = useState({});
+
+    const formSubmit = e => {
+        e.preventDefault();
+        fetch(`${api.base}weather?q=${e.target.city.value}&units=metric&appid=${api.key}`)
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            setData(data);
+        });
+    }
 
     const handleSubmit = e => {
         
@@ -28,7 +39,7 @@ const Search = () => {
 
     return (
         <div className="Search space-y-16">
-            <form className="bg-gray-900 rounded-2xl w-full p-4 flex justify-between items-center">
+            <form onSubmit={formSubmit} className="bg-gray-900 rounded-2xl w-full p-4 flex justify-between items-center">
                 <input onChange={e => setQuery(e.target.value)} type="text" name="city" id="city" placeholder="Your City" value={query} onKeyPress={handleSubmit} className="bg-gray-900 border-b focus:border-b p-1 flex-shrink"/>
                 <button className="w-6 h-6 flex-grow"><img src={search} alt="search" className='h-full mx-auto' /></button>
             </form>
