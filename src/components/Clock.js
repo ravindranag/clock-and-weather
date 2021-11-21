@@ -19,7 +19,7 @@ const Clock = () => {
             }
             let min = date.getMinutes();
             let sec = date.getSeconds();
-            let hrAngle = hr*(360/12);
+            let hrAngle = hr*(360/12) + (min / 2);
             // console.log('inside', carry.current);
             // carry.current = min%5;
             let minAngle = min*(360/60);

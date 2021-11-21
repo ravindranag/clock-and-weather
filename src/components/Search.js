@@ -9,33 +9,54 @@ const Search = () => {
     }
 
     const [query, setQuery] = useState('');
-    const [data, setData] = useState({});
+    const [data, setData] = useState({
+        name: localStorage.getItem('lastQuery'),
+        main: {
+            temp: localStorage.getItem('temp'),
+            feels_like: localStorage.getItem('feel')
+        }
+    });
 
-    const formSubmit = e => {
-        e.preventDefault();
-        fetch(`${api.base}weather?q=${e.target.city.value}&units=metric&appid=${api.key}`)
+
+    const fetchData = query => {
+        fetch(`${api.base}weather?q=${query}&units=metric&appid=${api.key}`)
         .then(res => {
             return res.json();
         })
         .then(data => {
             setData(data);
+            console.log(data);
+            localStorage.setItem('lastQuery',data.name);
+            localStorage.setItem('temp',data.main.temp);
+            localStorage.setItem('feel',data.main.feels_like);
         });
+
+        // localStorage.setItem('name',data.name);
+        // localStorage.setItem('temp',data.main.temp);
+        // localStorage.setItem('feel',data.main.feels_like);
+        // console.log(data.main.temp);
+    }
+
+    const formSubmit = e => {
+        localStorage.setItem('lastQuery',e.target.city.value);
+        e.preventDefault();
+        fetchData(e.target.city.value);
     }
 
     const handleSubmit = e => {
-        
         // console.log(e.target.city.value);
         if(e.key === "Enter"){
+            localStorage.setItem('lastQuery',query);
             e.preventDefault();
-            fetch(`${api.base}weather?q=${query}&units=metric&appid=${api.key}`)
-            .then(res => {
-                return res.json();
-            })
-            .then(data => {
-                setData(data);
-            });
+            fetchData(query);
         }    
     };
+
+    // if(localStorage.getItem('lastQuery') !== null){
+    //     data.name = localStorage.getItem('lastQuery');
+    //     data.main.temp = localStorage.getItem('temp');
+    //     data.main.feels_like = localStorage.getItem('feel');
+    // }
 
     return (
         <div className="Search space-y-16">
@@ -52,8 +73,8 @@ const Search = () => {
                         </div>
                         <div className='row-span-3 self-center text-4xl'>{Math.round(data.main.temp)}ºC</div>
                     </div>
-                </div>
-         : ('')}
+                </div> : 
+            ('')}
         </div>
     );
 }
